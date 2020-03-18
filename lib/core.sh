@@ -144,7 +144,7 @@ function _get_remote_command(){
     local inputrc_script="$(_concatenate_files "$KYRAT_HOME"/inputrc "$KYRAT_HOME"/inputrc.d/* | $GZIP | $BASE64)"
     local vimrc_script="$(_concatenate_files "$KYRAT_HOME"/vimrc "$KYRAT_HOME"/vimrc.d/* | $GZIP | $BASE64)"
     local tmux_conf="$(_concatenate_files "$KYRAT_HOME"/tmux.conf "$KYRAT_HOME"/tmux.conf.d/* | $GZIP | $BASE64)"
-
+    local etc_hosts="$(_concatenate_files /etc/hosts | $GZIP | $BASE64)"
     local commands_opt=""
     [[ -z "${COMMANDS[@]}" ]] || commands_opt="-c \"${COMMANDS[@]}\""
     $CAT <<EOF
@@ -156,6 +156,7 @@ command -v $BASE64 >/dev/null 2>&1 || { echo >&2 "kyrat requires $BASE64 command
 command -v $GUNZIP >/dev/null 2>&1 || { echo >&2 "kyrat requires $GUNZIP command on the remote host. Aborting."; exit $NOT_EXISTING_COMMAND; };
 kyrat_home="\$(mktemp -d kyrat-XXXXX -p "\$base_dir")";
 trap "rm -rf "\$kyrat_home"; exit" EXIT HUP INT QUIT PIPE TERM KILL;
+echo "${etc_hosts}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/etc_hosts";
 [[ -e \${HOME}/.bashrc ]] && echo "source \${HOME}/.bashrc" > "\${kyrat_home}/bashrc";
 echo "${rc_script}" | $BASE64 -di | $GUNZIP >> "\${kyrat_home}/bashrc";
 echo "${inputrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/inputrc";
