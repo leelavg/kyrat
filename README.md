@@ -1,3 +1,7 @@
+NOTE:
+=====
+All Credits belongs to original author. I'm modifying code for my purpose and request not to clone this repo for direct installs. I suggest to clone the [original](https://github.com/fsquillace/kyrat) repo for pull requests/contributions. Thanks.
+
 kyrat
 =====
 Kyrat - An ssh wrapper script that brings your dotfiles always with you on Linux and OSX
