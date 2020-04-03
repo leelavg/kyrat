@@ -58,10 +58,6 @@ function _concatenate_files(){
 #   None
 #######################################
 function kyrat(){
-    # mkdir -p $KYRAT_HOME/bashrc.d
-    # mkdir -p $KYRAT_HOME/inputrc.d
-    # mkdir -p $KYRAT_HOME/vimrc.d
-    # mkdir -p $KYRAT_HOME/tmux.conf.d
     _parse_args "$@"
     _execute_ssh
 }
@@ -140,10 +136,9 @@ function _execute_ssh(){
 #   The composed remote command to execute in the ssh session.
 #######################################
 function _get_remote_command(){
-    local rc_script="$(_concatenate_files "$KYRAT_HOME"/bashrc "$KYRAT_HOME"/bashrc.d/* | $GZIP | $BASE64)"
-    local inputrc_script="$(_concatenate_files "$KYRAT_HOME"/inputrc "$KYRAT_HOME"/inputrc.d/* | $GZIP | $BASE64)"
-    local vimrc_script="$(_concatenate_files "$KYRAT_HOME"/vimrc "$KYRAT_HOME"/vimrc.d/* | $GZIP | $BASE64)"
-    local tmux_conf="$(_concatenate_files "$KYRAT_HOME"/tmux.conf "$KYRAT_HOME"/tmux.conf.d/* | $GZIP | $BASE64)"
+    local rc_script="$(_concatenate_files "$KYRAT_HOME"/bashrc | $GZIP | $BASE64)"
+    local vimrc_script="$(_concatenate_files "$KYRAT_HOME"/init.vim | $GZIP | $BASE64)"
+    local tmux_conf="$(_concatenate_files "$KYRAT_HOME"/tmux.conf | $GZIP | $BASE64)"
     local etc_hosts="$(_concatenate_files /etc/hosts | $GZIP | $BASE64)"
     local commands_opt=""
     [[ -z "${COMMANDS[@]}" ]] || commands_opt="-c \"${COMMANDS[@]}\""
