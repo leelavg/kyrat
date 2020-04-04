@@ -139,7 +139,7 @@ function _get_remote_command(){
     local rc_script="$(_concatenate_files "$KYRAT_HOME"/bashrc | $GZIP | $BASE64)"
     local vimrc_script="$(_concatenate_files "$KYRAT_HOME"/init.vim | $GZIP | $BASE64)"
     local tmux_conf="$(_concatenate_files "$KYRAT_HOME"/tmux.conf | $GZIP | $BASE64)"
-    local etc_hosts="$(_concatenate_files /etc/hosts | $GZIP | $BASE64)"
+    local etc_hosts="$(_concatenate_files "$KYRAT_HOME"/etc_hosts | $GZIP | $BASE64)"
     local commands_opt=""
     [[ -z "${COMMANDS[@]}" ]] || commands_opt="-c \"${COMMANDS[@]}\""
     $CAT <<EOF
@@ -154,9 +154,8 @@ trap "rm -rf "\$kyrat_home"; exit" EXIT HUP INT QUIT PIPE TERM KILL;
 echo "${etc_hosts}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/etc_hosts";
 [[ -e \${HOME}/.bashrc ]] && echo "source \${HOME}/.bashrc" > "\${kyrat_home}/bashrc";
 echo "${rc_script}" | $BASE64 -di | $GUNZIP >> "\${kyrat_home}/bashrc";
-echo "${inputrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/inputrc";
 echo "${vimrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/vimrc";
 echo "${tmux_conf}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/tmux.conf";
-VIMINIT="let \\\$MYVIMRC=\\"\${kyrat_home}/vimrc\\" | source \\\$MYVIMRC" INPUTRC="\${kyrat_home}/inputrc" TMUX_CONF="\${kyrat_home}/tmux.conf" $BASH --rcfile "\${kyrat_home}/bashrc" -i ${commands_opt};
+VIMINIT="let \\\$MYVIMRC=\\"\${kyrat_home}/vimrc\\" | source \\\$MYVIMRC" TMUX_CONF="\${kyrat_home}/tmux.conf" $BASH --rcfile "\${kyrat_home}/bashrc" -i ${commands_opt};
 EOF
 }
