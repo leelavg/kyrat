@@ -155,7 +155,7 @@ echo "${etc_hosts}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.etc_hosts";
 [[ -e \${HOME}/.bashrc ]] && echo "source \${HOME}/.bashrc" > "\${kyrat_home}/.bashrc";
 echo "${rc_script}" | $BASE64 -di | $GUNZIP >> "\${kyrat_home}/.bashrc";
 echo "${vimrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.init.vim";
-echo "${tmux_conf)" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.tmux.conf";
+echo "${tmux_conf}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.tmux.conf";
 export khome="\$kyrat_home"; $BASH --rcfile "\${kyrat_home}/.bashrc" -i ${commands_opt};
 EOF
 }
