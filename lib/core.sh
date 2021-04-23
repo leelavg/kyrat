@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+KYRAT_HOME=${HOME}/.dotfiles
 KYRAT_HOME=${KYRAT_HOME:-${HOME}/.config/kyrat}
 KYRAT_TMPDIR=${KYRAT_TMPDIR:-/tmp}
 KYRAT_SHELL=${KYRAT_SHELL:-bash}
