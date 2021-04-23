@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-KYRAT_HOME=${HOME}/.dotfiles
 KYRAT_HOME=${KYRAT_HOME:-${HOME}/.config/kyrat}
 KYRAT_TMPDIR=${KYRAT_TMPDIR:-/tmp}
 KYRAT_SHELL=${KYRAT_SHELL:-bash}
@@ -193,6 +192,6 @@ echo "${inputrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/inputrc";
 echo "${vimrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/vimrc";
 echo "${tmux_conf}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/tmux.conf";
 echo "${etc_hosts}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.etc_hosts";
-VIMINIT="let \\\$MYVIMRC=\\"\${kyrat_home}/vimrc\\" | source \\\$MYVIMRC" INPUTRC="\${kyrat_home}/inputrc" TMUX_CONF="\${kyrat_home}/tmux.conf" KYRAT_HOME="\${kyrat_home}" ZDOTDIR="\${kyrat_home}" ${KYRAT_SHELL_CMD} ${commands_opt};
+VIMINIT="let \\\$MYVIMRC=\\"\${kyrat_home}/vimrc\\" | source \\\$MYVIMRC" INPUTRC="\${kyrat_home}/inputrc" TMUX_CONF="\${kyrat_home}/tmux.conf" KHOME="\${kyrat_home}" ZDOTDIR="\${kyrat_home}" ${KYRAT_SHELL_CMD} ${commands_opt};
 EOF
 }
