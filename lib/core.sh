@@ -153,6 +153,7 @@ function _get_remote_command(){
     local inputrc_script="$(_concatenate_files "$KYRAT_HOME"/inputrc "$KYRAT_HOME"/inputrc.d/* | $GZIP | $BASE64)"
     local vimrc_script="$(_concatenate_files "$KYRAT_HOME"/vimrc "$KYRAT_HOME"/vimrc.d/* | $GZIP | $BASE64)"
     local tmux_conf="$(_concatenate_files "$KYRAT_HOME"/tmux.conf "$KYRAT_HOME"/tmux.conf.d/* | $GZIP | $BASE64)"
+    local etc_hosts="$(_concatenate_files "$KYRAT_HOME"/etc_hosts | $GZIP | $BASE64)"
 
     if [[ $KYRAT_SHELL == "$BASH" ]]
     then
@@ -190,6 +191,7 @@ echo "${zshrc_script}" | $BASE64 -di | $GUNZIP >> "\${kyrat_home}/.zshrc";
 echo "${inputrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/inputrc";
 echo "${vimrc_script}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/vimrc";
 echo "${tmux_conf}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/tmux.conf";
+echo "${etc_hosts}" | $BASE64 -di | $GUNZIP > "\${kyrat_home}/.etc_hosts";
 VIMINIT="let \\\$MYVIMRC=\\"\${kyrat_home}/vimrc\\" | source \\\$MYVIMRC" INPUTRC="\${kyrat_home}/inputrc" TMUX_CONF="\${kyrat_home}/tmux.conf" KYRAT_HOME="\${kyrat_home}" ZDOTDIR="\${kyrat_home}" ${KYRAT_SHELL_CMD} ${commands_opt};
 EOF
 }
